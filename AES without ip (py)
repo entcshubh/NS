@@ -1,0 +1,9 @@
+import os
+iv = "7bde5a0f3f39fd658efc45de143cbc94"
+password = "3e83b13d99bf0de6c6bde5ac5ca4ae68"
+msg = "this is a message"
+out = os.popen(f'printf "{msg}" | openssl aes-128-cbc -base64 -K {password} -iv {iv}').read()
+print(f"IV: {iv}")
+print(f"PWD: {password}")
+print(f"MSG: {msg}")
+print(f"OUT: {out}")

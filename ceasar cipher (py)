@@ -1,0 +1,17 @@
+   # ceasar cipher
+def caesar_cipher_encrypt(text, shift):
+    encrypted_text = ""
+    for char in text:
+        if char.isalpha():
+            offset = ord('A') if char.isupper() else ord('a')
+            encrypted_text += chr((ord(char) - offset + shift) % 26 + offset)
+        else:
+            encrypted_text += char
+    return encrypted_text
+
+# Take input from the user
+text = input("Enter text to encrypt: ")
+shift = int(input("Enter the shift value: "))
+
+encrypted_text = caesar_cipher_encrypt(text, shift)
+print("Encrypted text:", encrypted_text)

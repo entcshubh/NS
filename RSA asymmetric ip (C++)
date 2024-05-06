@@ -1,0 +1,66 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+// Function to find the greatest common divisor (GCD) of two numbers
+int gcd(int a, int h) {
+    int temp;
+    while (1) {
+        temp = a % h;
+        if (temp == 0)
+            return h;
+        a = h;
+        h = temp;
+    }
+}
+
+int main() {
+    int p, q, e;
+    
+    // Taking input for p, q, and e
+    cout << "Enter the value of p: ";
+    cin >> p;
+    cout << "Enter the value of q: ";
+    cin >> q;
+    cout << "Enter the value of e: ";
+    cin >> e;
+    
+    // Calculate n and phi
+    int n = p * q;
+    int phi = (p - 1) * (q - 1);
+
+    // Increment e until it is relatively prime to phi
+    while (gcd(e, phi) != 1) {
+        cout << "The value of e must be relatively prime to phi(n)!\n";
+        cout << "Enter a new value for e: ";
+        cin >> e;
+    }
+
+    // Calculate the modular multiplicative inverse of e
+    int d = 0;
+    for (int k = 1; k <= phi; k++) {
+        if ((k * e) % phi == 1) {
+            d = k;
+            break;
+        }
+    }
+
+    // Message to be encrypted
+    int msg;
+    cout << "Enter the message to encrypt: ";
+    cin >> msg;
+    cout << "Message data = " << msg << endl;
+
+    // Encryption
+    int c = pow(msg, e);
+    c = c % n;
+    cout << "Encrypted data = " << c << endl;
+
+    // Decryption
+    int m = pow(c, d);
+    m = m % n;
+    cout << "Original Message Sent = " << m << endl;
+
+    return 0;
+}

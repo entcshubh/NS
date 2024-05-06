@@ -1,0 +1,18 @@
+import os
+
+def encrypt_aes_cbc(msg, password, iv):
+    command = f'printf "{msg}" | openssl aes-128-cbc -base64 -K {password} -iv {iv}'
+    encrypted_msg = os.popen(command).read().strip()
+    return encrypted_msg
+
+# Example usage
+iv = input("Enter the initialization vector (IV): ").strip()
+password = input("Enter the password (in hex): ").strip()
+msg = input("Enter the message to encrypt: ").strip()
+
+encrypted_msg = encrypt_aes_cbc(msg, password, iv)
+print("\nEncryption:")
+print(f"IV: {iv}")
+print(f"Password: {password}")
+print(f"Message: {msg}")
+print(f"Encrypted Message: {encrypted_msg}")

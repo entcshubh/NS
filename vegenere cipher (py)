@@ -1,0 +1,31 @@
+def generate_key(plain_text, key):
+    key_length = len(key)
+    key_repeated = (key * (len(plain_text) // key_length + 1))[:len(plain_text)]
+    return key_repeated
+
+def encrypt(plain_text, key):
+
+    cipher_text = ""
+    key = generate_key(plain_text, key)
+    for i in range(len(plain_text)):
+        char_index = (ord(plain_text[i].upper()) - ord('A') + ord(key[i].upper()) - ord('A')) % 26
+        cipher_text += chr(char_index + ord('A'))
+    return cipher_text
+
+def decrypt(cipher_text, key):
+
+    plain_text = ""
+    key = generate_key(cipher_text, key)
+    for i in range(len(cipher_text)):
+        char_index = (ord(cipher_text[i].upper()) - ord('A') - ord(key[i].upper()) - ord('A') + 26) % 26
+        plain_text += chr(char_index + ord('A'))
+    return plain_text
+
+plain_text = input("Enter the plaintext: ").replace(" ", "").upper()
+key = input("Enter the key: ").replace(" ", "").upper()
+
+cipher_text = encrypt(plain_text, key)
+print("Ciphertext:", cipher_text)
+
+decrypted_text = decrypt(cipher_text, key)
+print("Decrypted Text:", decrypted_text)
